@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
     if(!!req.session.is_logged_in) {
         res.render('template', {
             locals: {
-                title: 'Home page',
+                title: `Welcome to my dungeon ${req.session.first_name}`,
                 booksList: allBooks,
                 is_logged_in: req.session.is_logged_in,
                 userName: req.session.first_name
