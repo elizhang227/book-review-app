@@ -10,6 +10,34 @@ class Books {
         this.password = password;
     }
 
+    static async getAllReviews() {
+        try {
+            const response = await db.any(`select * from book, reviews where books.id=reviews.id`);
+            //const response = await db.any(`select * from topics`);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
+    static async getOneBook(name) {
+        try {
+            const response = await db.any(`select author, title from books where books.title='${name}'`);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
+    static async getOneReviewForBook(name, book_id) {
+        try {
+            const response = await db.any(`select book_id, author, title from books, reviews where books.title='${name}' and book_id=books.id and book_id=${book_id}`);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
     static async getAllBooks() {
         try {
             const response = await db.any(`select * from books`);

@@ -22,4 +22,28 @@ router.get('/', async function(req, res, next) {
     }
 });
 
+router.get('/:books/:review', (req, res, next) => {
+    console.log(req.params);
+    const booksId = req.params.books;
+    const review = req.params.review;
+
+    booksModel.getOneBook(booksId)
+    .then(async () => {
+        const allReviews = await booksModel.getOneReviewForBook(booksId, review);
+
+        res.status(200).render('template', {
+            locals: {
+                title: 'List of REVIEWS',
+                reviewList: allReviews
+            },
+            partials: {
+                content: 'partial-review'
+            }
+        });
+    })
+    .catch((err) => {
+        res.sendStatus(500).send(err.message);
+    });
+});
+
 module.exports = router;
