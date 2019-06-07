@@ -10,10 +10,12 @@ class Books {
         this.password = password;
     }
 
-    static async getAllReviews() {
+    static async getAllReviewsForBook(name) {
         try {
-            const response = await db.any(`select * from book, reviews where books.id=reviews.id`);
-            //const response = await db.any(`select * from topics`);
+            const response = await db.any(`
+            select book_id, title, author, review 
+            from books, reviews 
+            where books.title='${name}' and book_id=books.id`);
             return response;
         } catch(err) {
             return err.message

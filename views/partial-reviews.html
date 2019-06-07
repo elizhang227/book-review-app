@@ -8,7 +8,7 @@
                 <td>Year</td>
             </tr>
         </thead>
-        ${booksList.map(book =>
+        ${reviewsList.map(review =>
                 `<tr>
                     <td>${book.author}</td>
                     <td><a href="/${book.title}/${book.book_id}">${book.title}</a></td>
@@ -18,3 +18,4 @@
             ).join('')}
     </table>
 </section>
+
