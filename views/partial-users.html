@@ -1,0 +1,20 @@
+<section class="section">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Email</td>
+                <td>Password</td>
+            </tr>
+        </thead>
+        ${usersList.map(user =>
+                `<tr>
+                    <td>${user.first_name}</td>
+                    <td>${user.last_name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.password}</td>
+                </tr>`
+            ).join('')}
+    </table>
+</section>
