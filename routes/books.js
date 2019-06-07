@@ -23,11 +23,13 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/:book_id', async function(req, res, next) {
-    console.log("these are the req params", req.params.book_id);
+    //console.log("these are the req params", req.params.book_id);
     const bookID  = req.params.book_id;
-    console.log("this is the bookID", bookID);
+    //console.log("this is the bookID", bookID);
     const allReviews = await booksModel.getAllReviewsForBook(bookID);
-    console.log(`this is the allreviews: ${allReviews}`);
+    //console.log(`this is the allreviews: ${allReviews}`);
+    const bookInfo = await booksModel.getOneBook(bookID);
+    //console.log("thisis the author", bookInfo[0].author);
 
     //USE REQ.PARAMS
 
@@ -35,7 +37,8 @@ router.get('/:book_id', async function(req, res, next) {
         locals: {
             title: 'YOU GET A REVIEW, YOU GET A REVIEW, EVERYONE GETS A REVIEW',
             is_logged_in: req.session.is_logged_in,
-            reviewsList: allReviews
+            reviewsList: allReviews,
+            bookInfo: bookInfo
         },
         partials : {
             content: 'partial-reviews'

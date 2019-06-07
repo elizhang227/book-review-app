@@ -2,17 +2,29 @@
     <table class="table">
         <thead>
             <tr>
-                <td>Book ID</td>
-                <td>Title</td>
                 <td>Author</td>
-                <td>Review</td>
+                <td>Title</td>
+            </tr>
+        </thead>
+        ${bookInfo.map(x =>
+            `<tr>
+                <td>${bookInfo[0].author}</td>
+                <td>${bookInfo[0].title}</td>
+            </tr>`).join('')}
+    </table>
+</section>
+
+<section class="section">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Reviews</td>
             </tr>
         </thead>
         ${reviewsList.map(review =>
                 `<tr>
-                    <td>${review.book_id}</td>
-                    <td><a href="/${review.book_id}">${review.title}</a></td>
-                    <td>${review.author}</td>
+                    <!-- <td>${review.book_id}</td> -->
+                    <!-- <td><a href="/${review.book_id}">${review.title}</a></td> -->
                     <td>${review.content}</td>
                 </tr>`
             ).join('')}

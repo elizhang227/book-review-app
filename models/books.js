@@ -22,9 +22,9 @@ class Books {
         }
     }
 
-    static async getOneBook(name) {
+    static async getOneBook(id) {
         try {
-            const response = await db.any(`select author, title from books where books.title='${name}'`);
+            const response = await db.any(`select author, title from books where books.id='${id}'`);
             console.log(response);
             return response;
         } catch(err) {
