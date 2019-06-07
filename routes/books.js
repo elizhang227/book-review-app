@@ -22,8 +22,10 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.get('/:books/:review', (req, res, next) => {
-    const allReviews = await yelpModel.getAllReviewsForBook();
+router.get('/:books/:review', async function(req, res, next) {
+    console.log(req.body);
+    const allReviews = await booksModel.getAllReviewsForBook();
+    console.log(`this is the allreviews: ${allReviews}`);
 
     res.render('template', { 
         locals: {
@@ -33,6 +35,33 @@ router.get('/:books/:review', (req, res, next) => {
         partials : {
             content: 'partial-reviews'
         }
+    });
+});
+
+router.post('/', (req, res) => {
+    console.log("this is the req body", req.body);
+    const { name } = req.body;
+
+    console.log("this is the name", name);
+
+    booksModel.getOneBook(name)
+    .then(async () => {
+        const allReviews = await booksModel.getAllReviewsForBook(name);
+        console.log("this is all the reviews", allReviews);
+
+        res.status(200).render('template', {
+            locals: {
+                title: 'List of REVIEWS',
+                is_logged_in: req.session.is_logged_in,
+                reviewsList: allReviews
+            },
+            partials: {
+                content: 'partial-reviews'
+            }
+        });
+    })
+    .catch((err) => {
+        res.sendStatus(500).send(err.message);
     });
 });
 

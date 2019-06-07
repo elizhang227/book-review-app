@@ -2,20 +2,19 @@
     <table class="table">
         <thead>
             <tr>
-                <td>Author</td>
+                <td>Book ID</td>
                 <td>Title</td>
-                <td>Pages</td>
-                <td>Year</td>
+                <td>Author</td>
+                <td>Review</td>
             </tr>
         </thead>
         ${reviewsList.map(review =>
                 `<tr>
-                    <td>${book.author}</td>
-                    <td><a href="/${book.title}/${book.book_id}">${book.title}</a></td>
-                    <td>${book.pages}</td>
-                    <td>${book.year}</td>
+                    <td>${review.book_id}</td>
+                    <td><a href="/${review.title}/${review.review_id}">${review.title}</a></td>
+                    <td>${review.author}</td>
+                    <td>${review.content}</td>
                 </tr>`
             ).join('')}
     </table>
 </section>
-

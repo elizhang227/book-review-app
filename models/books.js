@@ -13,7 +13,7 @@ class Books {
     static async getAllReviewsForBook(name) {
         try {
             const response = await db.any(`
-            select book_id, title, author, review 
+            select book_id, title, author, content 
             from books, reviews 
             where books.title='${name}' and book_id=books.id`);
             return response;
@@ -25,6 +25,7 @@ class Books {
     static async getOneBook(name) {
         try {
             const response = await db.any(`select author, title from books where books.title='${name}'`);
+            console.log(response);
             return response;
         } catch(err) {
             return err.message
