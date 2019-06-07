@@ -1,11 +1,20 @@
 create database bookapp;
 
+-- create table books
+-- (
+--     id serial primary key,
+--     title varchar(200),
+--     author varchar(200),
+--     pagecount integer
+-- );
+
 create table books
 (
     id serial primary key,
-    title varchar(200),
     author varchar(200),
-    pagecount integer
+    pages integer,
+    title varchar(200),
+    year integer
 );
 
 create table users
