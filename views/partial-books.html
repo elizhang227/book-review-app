@@ -1,0 +1,22 @@
+<section class="section">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Address</td>
+                <td>Street</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Menu</td>
+            </tr>
+        </thead>
+        ${booksList.map(book =>
+                `<tr>
+                    <td>${book.author}</td>
+                    <td>${book.title}</td>
+                    <td>${book.pages}</td>
+                    <td>${book.year}</td>
+                </tr>`
+            ).join('')}
+    </table>
+</section>
