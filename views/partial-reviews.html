@@ -11,7 +11,7 @@
         ${reviewsList.map(review =>
                 `<tr>
                     <td>${review.book_id}</td>
-                    <td><a href="/${review.title}/${review.review_id}">${review.title}</a></td>
+                    <td><a href="/${review.book_id}">${review.title}</a></td>
                     <td>${review.author}</td>
                     <td>${review.content}</td>
                 </tr>`

@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <td>Author</td>
+                <td>book id</td>
                 <td>Title</td>
                 <td>Pages</td>
                 <td>Year</td>
@@ -27,7 +28,8 @@
         ${booksList.map(book =>
                 `<tr>
                     <td>${book.author}</td>
-                    <td><a href="/${book.title}/${book.book_id}">${book.title}</a></td>
+                    <td>${book.book_id}</td>
+                    <td><a href="/books/${book.book_id}">${book.title}</a></td>
                     <td>${book.pages}</td>
                     <td>${book.year}</td>
                 </tr>`
