@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
                 userName: req.session.first_name
             },
             partials: {
-                content: 'partial-restaurants'
+                content: 'partial-books'
             }
         });
     } else {

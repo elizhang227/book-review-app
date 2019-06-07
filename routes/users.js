@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
       req.session.first_name = response.first_name;
       req.session.last_name = response.last_name;
       req.session.user_id = response.user_id;
-      res.redirect('/restaurants');
+      res.redirect('/books');
     } else {
       res.sendStatus(401);
     }
