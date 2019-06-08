@@ -1,25 +1,8 @@
 <section class="section">
-    <p>Search for Reviews</p>
-    <form action="/books" method="POST">
-            <label>Book Name:
-                <input type="text" name="name">
-            </label>
-            <!-- <label>Review:
-                <input type="text" name="review">
-            </label> -->
-        <div class="button">
-            <button id="reviewbutton" type="submit">Search me hard</button>
-        </div>
-    </form>
-</section>
-
-
-<section class="section">
     <table class="table">
         <thead>
             <tr>
                 <td>Author</td>
-                <td>book id</td>
                 <td>Title</td>
                 <td>Pages</td>
                 <td>Year</td>
@@ -28,7 +11,6 @@
         ${booksList.map(book =>
                 `<tr>
                     <td>${book.author}</td>
-                    <td>${book.book_id}</td>
                     <td><a href="/books/${book.book_id}">${book.title}</a></td>
                     <td>${book.pages}</td>
                     <td>${book.year}</td>
