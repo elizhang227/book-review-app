@@ -47,25 +47,29 @@ router.post('/:book_id', async function(req, res, next) {
     const bookID = req.params.book_id;
     const bookInfo = await booksModel.getOneBook(bookID);
 
-    booksModel.addReview(name, bookID)
-    .then(async () => {
-        const allTopics = await booksModel.getAllReviewsForBook(bookID);
+    if(!!req.session.is_logged_in) {
+        booksModel.addReview(name, bookID)
+        .then(async () => {
+            const allTopics = await booksModel.getAllReviewsForBook(bookID);
 
-        res.status(200).render('template', {
-            locals: {
-                title: 'List of Topics from Class',
-                is_logged_in: req.session.is_logged_in,
-                reviewsList: allTopics,
-                bookInfo: bookInfo
-            },
-            partials: {
-                content: 'partial-reviews'
-            }
+            res.status(200).render('template', {
+                locals: {
+                    title: 'List of Topics from Class',
+                    is_logged_in: req.session.is_logged_in,
+                    reviewsList: allTopics,
+                    bookInfo: bookInfo
+                },
+                partials: {
+                    content: 'partial-reviews'
+                }
+            });
+        })
+        .catch((err) => {
+            res.sendStatus(500).send(err.message);
         });
-    })
-    .catch((err) => {
-        res.sendStatus(500).send(err.message);
-    });
+    } else {
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
