@@ -40,55 +40,32 @@ router.get('/:book_id', async function(req, res, next) {
     });
 });
 
-// router.post('/', (req, res) => {
-//     console.log("this is the req body", req.body);
-//     const { name } = req.body;
+router.post('/:book_id', async function(req, res, next) {
+    console.log("this is the req body", req.body);
+    const { name } = req.body;
+    console.log("this is the req params", req.params);
+    const bookID = req.params.book_id;
+    const bookInfo = await booksModel.getOneBook(bookID);
 
-//     console.log("this is the name", name);
+    booksModel.addReview(name, bookID)
+    .then(async () => {
+        const allTopics = await booksModel.getAllReviewsForBook(bookID);
 
-//     booksModel.getOneBook(name)
-//     .then(async () => {
-//         const allReviews = await booksModel.getAllReviewsForBook(name);
-//         console.log("this is all the reviews", allReviews);
-
-//         res.status(200).render('template', {
-//             locals: {
-//                 title: 'List of REVIEWS',
-//                 is_logged_in: req.session.is_logged_in,
-//                 reviewsList: allReviews
-//             },
-//             partials: {
-//                 content: 'partial-reviews'
-//             }
-//         });
-//     })
-//     .catch((err) => {
-//         res.sendStatus(500).send(err.message);
-//     });
-// });
-
-// router.get('/:books/:review', (req, res, next) => {
-//     console.log(req.params);
-//     const booksId = req.params.books;
-//     const review = req.params.review;
-
-//     booksModel.getOneBook(booksId)
-//     .then(async () => {
-//         const allReviews = await booksModel.getOneReviewForBook(booksId, review);
-
-//         res.status(200).render('template', {
-//             locals: {
-//                 title: 'List of REVIEWS',
-//                 reviewList: allReviews
-//             },
-//             partials: {
-//                 content: 'partial-review'
-//             }
-//         });
-//     })
-//     .catch((err) => {
-//         res.sendStatus(500).send(err.message);
-//     });
-// });
+        res.status(200).render('template', {
+            locals: {
+                title: 'List of Topics from Class',
+                is_logged_in: req.session.is_logged_in,
+                reviewsList: allTopics,
+                bookInfo: bookInfo
+            },
+            partials: {
+                content: 'partial-reviews'
+            }
+        });
+    })
+    .catch((err) => {
+        res.sendStatus(500).send(err.message);
+    });
+});
 
 module.exports = router;

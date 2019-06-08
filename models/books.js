@@ -10,6 +10,18 @@ class Books {
         this.password = password;
     }
 
+    static async addReview(review, book_id) {
+        const query = `INSERT INTO reviews (content, book_id) VALUES ('${review}', ${book_id})`;
+
+        try {
+            let response = await db.result(query)
+            return response;
+        } catch(err) {
+            console.log("ERROR", err.message);
+            return err;
+        };
+    }
+
     static async getAllReviewsForBook(id) {
         try {
             const response = await db.any(`
