@@ -5,7 +5,7 @@ const express = require('express'),
 router.get('/', async function(req, res, next) {
   res.render('template', {
     locals: {
-      title: 'Home page',
+      title: 'Welcome to the home page!',
       is_logged_in: req.session.is_logged_in,
       userName: req.session.first_name
     },

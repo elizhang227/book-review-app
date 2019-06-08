@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
       req.session.user_id = response.user_id;
       res.redirect('/books');
     } else {
-      res.sendStatus(401);
+      res.redirect('/');
     }
   })
 });

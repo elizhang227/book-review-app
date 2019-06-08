@@ -55,7 +55,7 @@ class Books {
 
     static async getAllBooks() {
         try {
-            const response = await db.any(`select distinct books.id, author, pages, title, book_id from books, reviews where book_id=books.id`);
+            const response = await db.any(`select distinct books.id, author, pages, title, year, book_id from books, reviews where book_id=books.id`);
             return response;
         } catch(err) {
             return err.message
