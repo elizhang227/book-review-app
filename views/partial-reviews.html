@@ -1,4 +1,9 @@
-<section class="section">
+${bookInfo.map(x =>
+    `<p><b>Title: ${bookInfo[0].title}</b></p>
+        <p><b>Author: ${bookInfo[0].author}</b></p>
+    `).join('')}
+
+<!-- <section class="section">
     <table class="table">
         <thead>
             <tr>
@@ -12,13 +17,13 @@
                 <td>${bookInfo[0].title}</td>
             </tr>`).join('')}
     </table>
-</section>
+</section> -->
 
 <section class="section">
     <table class="table">
         <thead>
             <tr>
-                <td>Reviews</td>
+                <td><b>Reviews</b></td>
             </tr>
         </thead>
         ${reviewsList.map(review =>
@@ -34,8 +39,7 @@
     <p><b>Post a Review</b></p>
     <form action="/books/${reviewsList[0].book_id}" method="POST">
             <label><b>P:</b>
-                <textarea cols="50" rows="7"></textarea>
-                <!-- <input type="text" name="name" style="height:150px; width:500px;"> -->
+                <textarea type="text" name="name" cols="50" rows="7"></textarea>
             </label>
         <div class="button">
             <button type="submit">Add Review</button>
