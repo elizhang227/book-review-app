@@ -23,15 +23,9 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/:book_id', async function(req, res, next) {
-    //console.log("these are the req params", req.params.book_id);
     const bookID  = req.params.book_id;
-    //console.log("this is the bookID", bookID);
     const allReviews = await booksModel.getAllReviewsForBook(bookID);
-    //console.log(`this is the allreviews: ${allReviews}`);
     const bookInfo = await booksModel.getOneBook(bookID);
-    //console.log("thisis the author", bookInfo[0].author);
-
-    //USE REQ.PARAMS
 
     res.render('template', { 
         locals: {
