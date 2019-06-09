@@ -30,6 +30,7 @@ ${bookInfo.map(x =>
                 `<tr>
                     <!-- <td><a href="/${review.book_id}">${review.title}</a></td> -->
                     <td><a href="">${review.content}</a></td>
+                    <input type="hidden" value="${review.id}">
                 </tr>`
             ).join('')}
     </table>

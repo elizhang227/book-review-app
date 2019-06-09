@@ -10,8 +10,8 @@ class Books {
         this.password = password;
     }
 
-    static async addReview(review, book_id) {  // , user_id
-        const query = `INSERT INTO reviews (content, book_id, user_id) VALUES ('${review}', ${book_id})`; //, ${user_id}
+    static async addReview(review, book_id, user_id) {  // , user_id
+        const query = `INSERT INTO reviews (content, book_id, user_id) VALUES ('${review}', ${book_id}, ${user_id})`; //, ${user_id}
 
         try {
             let response = await db.result(query)
@@ -28,6 +28,7 @@ class Books {
             select book_id, title, author, content, users.id
             from books, reviews, users
             where books.id='${book_id}' and book_id=books.id and user_id = users.id`);
+            console.log("this is the response", response);
             return response;
         } catch(err) {
             return err.message
