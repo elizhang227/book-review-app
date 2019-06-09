@@ -46,13 +46,10 @@ router.get('/:book_id', async function(req, res, next) {
 router.post('/:book_id', async function(req, res, next) {
     console.log("this is the req body", req.body);
     const { review } = req.body;
-
     console.log("this is the req params", req.params);
     const bookID = req.params.book_id;
-    const bookInfo = await booksModel.getOneBook(bookID);
+    const bookInfo = await booksModel.getBookInfo(bookID);
     const whatever = await booksModel.getUser(req.session.email);
-    console.log("this is whatever", whatever.id);
-    // console.log("this is a test", test[0]);
 
     if(!!req.session.is_logged_in) {
         booksModel.addReview(review, bookID, whatever.id)

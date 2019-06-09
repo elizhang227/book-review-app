@@ -1,13 +1,8 @@
-const db = require('./conn.js'),
-    bcrypt = require('bcryptjs');
+const db = require('./conn.js');
 
 class Books {
-    constructor(id, first_name, last_name, email, password) {
+    constructor(id) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.password = password;
     }
 
     static async addReview(review, book_id, user_id) {  // , user_id
@@ -25,7 +20,6 @@ class Books {
     static async getUser(email) {
         try {
             const response = await db.one(`select id from users where email='${email}'`);
-            console.log("this is the user", response);
             return response;
         } catch(err) {
             return err.message
@@ -38,14 +32,13 @@ class Books {
             select book_id, title, author, content, users.id
             from books, reviews, users
             where books.id='${book_id}' and book_id=books.id and user_id = users.id`);
-            //console.log("this is the response", response);
             return response;
         } catch(err) {
             return err.message
         }
     }
 
-    static async getOneBook(id) {
+    static async getBookInfo(id) {
         try {
             const response = await db.any(`select author, title from books where books.id='${id}'`);
             console.log(response);
@@ -72,42 +65,6 @@ class Books {
             return err.message
         }
     }
-
-    async checkPassword(hashedPassword) {
-        return bcrypt.compareSync(this.password, hashedPassword);
-    }
-
-    // async createUser() {
-    //     try {
-    //         const response = await db.one(`
-    //         insert into users
-    //             (first_name, last_name, email, password)
-    //         values
-    //             ($1, $2, $3, $4)
-    //         returning id`, [this.first_name, this.last_name. this.email, this.password]);
-    //         return response;
-    //     } catch(err) {
-    //         return err.message
-    //     }
-    // }
-
-    // async login() {
-    //     try {
-    //         const response = await db.one(`
-    //             select id, first_name, last_name, password
-    //                 from users
-    //             where email = $1`, [this.email]);
-    //         const isValid = await this.checkPassword(response.password);
-    //         if (!!isValid) {
-    //             const { first_name, last_name, id } = response;
-    //             return { isValid, first_name, last_name, user_id: id }
-    //         } else {
-    //             return { isValid } 
-    //         };
-    //     } catch(err) {
-    //         return err.message
-    //     }
-    // }
 
 }
 
