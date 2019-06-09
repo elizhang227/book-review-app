@@ -34,6 +34,7 @@ router.get('/:book_id', async function(req, res, next) {
             is_logged_in: req.session.is_logged_in,
             reviewsList: allReviews,
             userName: req.session.first_name,
+            email: req.session.email,
             bookInfo: bookInfo
         },
         partials : {
@@ -49,13 +50,12 @@ router.post('/:book_id', async function(req, res, next) {
     console.log("this is the req params", req.params);
     const bookID = req.params.book_id;
     const bookInfo = await booksModel.getOneBook(bookID);
-    const test = await booksModel.getAllReviewsForBook(bookID); // <--- wronggggggg
-    const whatever = await booksModel.getUser();
-    console.log("this is whatever", whatever[0]);
-    console.log("this is a test", test[0]);
+    const whatever = await booksModel.getUser(req.session.email);
+    console.log("this is whatever", whatever.id);
+    // console.log("this is a test", test[0]);
 
     if(!!req.session.is_logged_in) {
-        booksModel.addReview(review, bookID, test[0].id)
+        booksModel.addReview(review, bookID, whatever.id)
         .then(async () => {
             const allReviews = await booksModel.getAllReviewsForBook(bookID);
 
@@ -65,7 +65,8 @@ router.post('/:book_id', async function(req, res, next) {
                     is_logged_in: req.session.is_logged_in,
                     reviewsList: allReviews,
                     userName: req.session.first_name,
-                    bookInfo: bookInfo
+                    bookInfo: bookInfo,
+                    email: req.session.email
                 },
                 partials: {
                     content: 'partial-reviews'

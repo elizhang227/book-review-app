@@ -22,10 +22,11 @@ class Books {
         };
     }
 
-    static async getUser() {
+    static async getUser(email) {
         try {
-            // const response = await db.one(`select id from users`);
-            // console.log("this is the user", response);
+            const response = await db.one(`select id from users where email='${email}'`);
+            console.log("this is the user", response);
+            return response;
         } catch(err) {
             return err.message
         }
