@@ -22,13 +22,22 @@ class Books {
         };
     }
 
+    static async getUser() {
+        try {
+            // const response = await db.one(`select id from users`);
+            // console.log("this is the user", response);
+        } catch(err) {
+            return err.message
+        }
+    }
+
     static async getAllReviewsForBook(book_id) { // user_id
         try {
             const response = await db.any(`
             select book_id, title, author, content, users.id
             from books, reviews, users
             where books.id='${book_id}' and book_id=books.id and user_id = users.id`);
-            console.log("this is the response", response);
+            //console.log("this is the response", response);
             return response;
         } catch(err) {
             return err.message

@@ -55,6 +55,7 @@ router.post('/login', async (req, res) => {
   await userInstance.login().then(response => {
     req.session.is_logged_in = response.isValid;
     if (!!response.isValid) {
+      req.session.email = response.email;
       req.session.first_name = response.first_name;
       req.session.last_name = response.last_name;
       req.session.user_id = response.user_id;

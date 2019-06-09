@@ -42,14 +42,14 @@ class Users {
     async login() {
         try {
             const response = await db.one(`
-                select id, first_name, last_name, password
+                select id, first_name, last_name, password, email
                     from users
                 where email = $1`, [this.email]);
             console.log(response);
             const isValid = await this.checkPassword(response.password);
             if (!!isValid) {
-                const { first_name, last_name, id } = response;
-                return { isValid, first_name, last_name, user_id: id }
+                const { first_name, last_name, id, email } = response;
+                return { isValid, first_name, last_name, user_id: id, email }
             } else {
                 return { isValid } 
             };
