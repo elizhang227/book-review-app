@@ -5,7 +5,7 @@ const express = require('express'),
 router.get('/', async function(req, res, next) {
     const allBooks = await booksModel.getAllBooks();
 
-    if(!!req.session.is_logged_in) {
+    //if(!!req.session.is_logged_in) {
         res.render('template', {
             locals: {
                 title: `Welcome to my dungeon ${req.session.first_name}`,
@@ -18,10 +18,11 @@ router.get('/', async function(req, res, next) {
                 content: 'partial-books'
             }
         });
-    } else {
-        res.redirect('/');
-    }
-});
+    }); 
+    //else {
+    //res.redirect('/');
+    //}
+//});
 
 router.get('/:book_id', async function(req, res, next) {
     const bookID  = req.params.book_id;
@@ -54,6 +55,7 @@ router.post('/:book_id', async function(req, res, next) {
     if(!!req.session.is_logged_in) {
         booksModel.addReview(review, bookID, whatever.id)
         .then(async () => {
+            res.redirect(`/books/${bookID}`); // post-get-redirect to avoid form resubmission
             const allReviews = await booksModel.getAllReviewsForBook(bookID);
 
             res.status(200).render('template', {
@@ -69,6 +71,7 @@ router.post('/:book_id', async function(req, res, next) {
                     content: 'partial-reviews'
                 }
             });
+
         })
         .catch((err) => {
             res.sendStatus(500).send(err.message);
