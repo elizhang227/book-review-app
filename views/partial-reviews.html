@@ -3,22 +3,6 @@ ${bookInfo.map(x =>
         <p><b>Author: ${bookInfo[0].author}</b></p>
     `).join('')}
 
-<!-- <section class="section">
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Author</td>
-                <td>Title</td>
-            </tr>
-        </thead>
-        ${bookInfo.map(x =>
-            `<tr>
-                <td>${bookInfo[0].author}</td>
-                <td>${bookInfo[0].title}</td>
-            </tr>`).join('')}
-    </table>
-</section> -->
-
 <section class="section">
     <table class="table">
         <thead>
@@ -30,8 +14,6 @@ ${bookInfo.map(x =>
                 `<tr>
                     <!-- <td><a href="/${review.book_id}">${review.title}</a></td> -->
                     <td><a href="">${review.content}</a></td>
-                    <!-- <td>${review.id}</td> -->
-                    <!-- <input type="hidden" value="${review.id}"> -->
                 </tr>`
             ).join('')}
     </table>

@@ -26,7 +26,7 @@ router.get('/', async function(req, res, next) {
 router.get('/:book_id', async function(req, res, next) {
     const bookID  = req.params.book_id;
     const allReviews = await booksModel.getAllReviewsForBook(bookID);
-    const bookInfo = await booksModel.getOneBook(bookID);
+    const bookInfo = await booksModel.getBookInfo(bookID);
 
     res.render('template', { 
         locals: {

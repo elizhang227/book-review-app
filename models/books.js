@@ -5,8 +5,11 @@ class Books {
         this.id = id;
     }
 
-    static async addReview(review, book_id, user_id) {  // , user_id
-        const query = `INSERT INTO reviews (content, book_id, user_id) VALUES ('${review}', ${book_id}, ${user_id})`; //, ${user_id}
+    static async addReview(review, book_id, user_id) {
+        const query = `
+        INSERT INTO reviews 
+            (content, book_id, user_id) 
+        VALUES ('${review}', ${book_id}, ${user_id})`;
 
         try {
             let response = await db.result(query)
@@ -19,14 +22,17 @@ class Books {
 
     static async getUser(email) {
         try {
-            const response = await db.one(`select id from users where email='${email}'`);
+            const response = await db.one(`
+            select id 
+            from users 
+            where email='${email}'`);
             return response;
         } catch(err) {
             return err.message
         }
     }
 
-    static async getAllReviewsForBook(book_id) { // user_id
+    static async getAllReviewsForBook(book_id) {
         try {
             const response = await db.any(`
             select book_id, title, author, content, users.id
@@ -40,8 +46,10 @@ class Books {
 
     static async getBookInfo(id) {
         try {
-            const response = await db.any(`select author, title from books where books.id='${id}'`);
-            console.log(response);
+            const response = await db.any(`
+            select author, title 
+            from books 
+            where books.id='${id}'`);
             return response;
         } catch(err) {
             return err.message
@@ -50,7 +58,10 @@ class Books {
 
     static async getOneReviewForBook(name, book_id) {
         try {
-            const response = await db.any(`select book_id, author, title from books, reviews where books.title='${name}' and book_id=books.id and book_id=${book_id}`);
+            const response = await db.any(`
+            select book_id, author, title 
+            from books, reviews 
+            where books.title='${name}' and book_id=books.id and book_id=${book_id}`);
             return response;
         } catch(err) {
             return err.message
@@ -59,7 +70,10 @@ class Books {
 
     static async getAllBooks() {
         try {
-            const response = await db.any(`select distinct books.id, author, pages, title, year, book_id from books, reviews where book_id=books.id`);
+            const response = await db.any(`
+            select distinct books.id, author, pages, title, year, book_id
+            from books, reviews 
+            where book_id=books.id`);
             return response;
         } catch(err) {
             return err.message
