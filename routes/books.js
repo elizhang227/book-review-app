@@ -50,10 +50,10 @@ router.post('/:book_id', async function(req, res, next) {
     console.log("this is the req params", req.params);
     const bookID = req.params.book_id;
     const bookInfo = await booksModel.getBookInfo(bookID);
-    const whatever = await booksModel.getUser(req.session.email);
+    const userID = await booksModel.getUser(req.session.email);
 
     if(!!req.session.is_logged_in) {
-        booksModel.addReview(review, bookID, whatever.id)
+        booksModel.addReview(review, bookID, userID.id)
         .then(async () => {
             res.redirect(`/books/${bookID}`); // post-get-redirect to avoid form resubmission
             const allReviews = await booksModel.getAllReviewsForBook(bookID);

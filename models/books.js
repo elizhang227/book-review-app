@@ -35,9 +35,9 @@ class Books {
     static async getAllReviewsForBook(book_id) {
         try {
             const response = await db.any(`
-            select book_id, title, author, content, users.id
-            from books, reviews, users
-            where books.id='${book_id}' and book_id=books.id and user_id = users.id`);
+            select book_id, title, author, content
+            from books, reviews
+            where books.id='${book_id}' and book_id=books.id`);
             return response;
         } catch(err) {
             return err.message
