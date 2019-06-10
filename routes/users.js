@@ -3,6 +3,8 @@ const express = require('express'),
     router = express.Router(),
     usersModel = require('../models/users');
 
+const UsersControllers = require('../controllers/users');
+
 router.get('/', async (req, res, next) => {
     const allUsers = await usersModel.getAllUsers();
 
@@ -30,17 +32,7 @@ router.get('/login', async (req, res, next) => {
   })
 });
 
-router.get('/signup', async (req, res, next) => {
-  res.render('template', {
-    locals: {
-      title: 'Signup Page',
-      is_logged_in: req.session.is_logged_in,
-    },
-    partials: {
-      content: 'partial-signup-form'
-    }
-  })
-});
+router.get('/signup', UsersControllers.signup_get);
 
 router.get('/logout', async (req, res) => {
   req.session.destroy();
