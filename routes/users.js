@@ -5,20 +5,7 @@ const express = require('express'),
 
 const UsersControllers = require('../controllers/users');
 
-router.get('/', async (req, res, next) => {
-    const allUsers = await usersModel.getAllUsers();
-
-    res.render('template', { 
-        locals: {
-            title: 'List of Users',
-            usersList: allUsers,
-            is_logged_in: req.session.is_logged_in,
-        },
-        partials : {
-            content: 'partial-users'
-        }
-    });
-})
+router.get('/', UsersControllers.homepage_get);
 
 router.get('/login', async (req, res, next) => {
   res.render('template', {
