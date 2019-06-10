@@ -7,24 +7,11 @@ const UsersControllers = require('../controllers/users');
 
 router.get('/', UsersControllers.homepage_get);
 
-router.get('/login', async (req, res, next) => {
-  res.render('template', {
-    locals: {
-      title: 'Login Page',
-      is_logged_in: req.session.is_logged_in,
-    },
-    partials: {
-      content: 'partial-login-form'
-    }
-  })
-});
+router.get('/login', UsersControllers.login_get);
 
 router.get('/signup', UsersControllers.signup_get);
 
-router.get('/logout', async (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
-})
+router.get('/logout', UsersControllers.logout_get);
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
