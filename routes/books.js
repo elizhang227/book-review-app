@@ -5,25 +5,7 @@ const express = require('express'),
 
 router.get('/', booksController.homepage_get);
 
-router.get('/:book_id', async function(req, res, next) {
-    const bookID  = req.params.book_id;
-    const allReviews = await booksModel.getAllReviewsForBook(bookID);
-    const bookInfo = await booksModel.getBookInfo(bookID);
-
-    res.render('template', { 
-        locals: {
-            title: 'YOU GET A REVIEW, YOU GET A REVIEW, EVERYONE GETS A REVIEW',
-            is_logged_in: req.session.is_logged_in,
-            reviewsList: allReviews,
-            userName: req.session.first_name,
-            email: req.session.email,
-            bookInfo: bookInfo
-        },
-        partials : {
-            content: 'partial-reviews'
-        }
-    });
-});
+router.get('/:book_id', booksController.book_id_get);
 
 router.post('/:book_id', async function(req, res, next) {
     console.log("this is the req body", req.body);
