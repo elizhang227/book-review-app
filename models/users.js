@@ -1,5 +1,4 @@
-const db = require('./conn.js'),
-    bcrypt = require('bcryptjs');
+const db = require('./conn.js');
 
 class Users {
     constructor(id, first_name, last_name, email, password) {
@@ -8,12 +7,6 @@ class Users {
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-    }
-
-    async checkPassword(hashedPassword) {
-        // first argument is what the user put in the form
-        // second argument is the hashed password
-        return bcrypt.compareSync(this.password, hashedPassword);
     }
 
     static async getAllUsers() {
@@ -39,22 +32,15 @@ class Users {
         }
     }
 
-    async login() {
+    async getUserByEmail() {
         try {
             const response = await db.one(`
-                select id, first_name, last_name, password, email
-                    from users
-                where email = $1`, [this.email]);
-            console.log(response);
-            const isValid = await this.checkPassword(response.password);
-            if (!!isValid) {
-                const { first_name, last_name, id, email } = response;
-                return { isValid, first_name, last_name, user_id: id, email }
-            } else {
-                return { isValid } 
-            };
+            select id, first_name, last_name, password, email
+                from users
+            where email = $1`, [this.email]);
+            return response;
         } catch(err) {
-            return err.message
+            return err.message;
         }
     }
 
