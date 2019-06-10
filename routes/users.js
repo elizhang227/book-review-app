@@ -74,11 +74,8 @@ router.post('/signup', async (req, res) => {
   const hash = bcrypt.hashSync(password, salt);
 
   // Creates a new user instance, with the sign up information
-  
   const userInstance = new usersModel(null, first_name, last_name, email, hash);
-
   let check = await userInstance.emailExists();
-
   if (typeof check === 'object') {
     res.redirect('/users/login');
   } else {
@@ -87,8 +84,6 @@ router.post('/signup', async (req, res) => {
         res.redirect('/');
       }) .catch(err => err);
   }
-
-
 });
 
 module.exports = router;
