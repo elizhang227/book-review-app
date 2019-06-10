@@ -64,3 +64,24 @@ exports.signup_post = async (req, res) => {
         }) .catch(err => err);
     }
 }
+
+exports.login_post = async (req, res) => {
+    const { email, password } = req.body;
+
+    const userInstance = new User(null, null, null, email, password);
+
+    const userData = await userInstance.getUserByEmail();
+
+    const isValid = bcrypt.compareSync(password, userData.password);
+
+    if (!!isValid) {
+        req.session.is_logged_in = true;
+        req.session.email = userData.email;
+        req.session.first_name = userData.first_name;
+        req.session.last_name = userData.last_name;
+        req.session.user_id = userData.user_id;
+        res.redirect('/books');
+    } else {
+        res.redirect('/');
+    }
+}
