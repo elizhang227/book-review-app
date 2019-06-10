@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs'),
-    Users = require('../models/users');
+    User = require('../models/users');
 
 exports.homepage_get = async (req, res) => {
     const allUsers = await Users.getAllUsers();
@@ -43,4 +43,24 @@ exports.login_get = (req, res) => {
 exports.logout_get = (req, res) => {
     req.session.destroy();
     res.redirect('/');
+}
+
+exports.signup_post = async (req, res) => {
+    const { first_name, last_name, email, password } = req.body;
+
+    // Salt and hash our password!
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+
+    // Creates a new user instance, with the sign up information
+    const userInstance = new User(null, first_name, last_name, email, hash);
+    let check = await userInstance.emailExists();
+    if (typeof check === 'object') {
+        res.redirect('/users/login');
+    } else {
+        await userInstance.createUser().then(response => {
+            console.log("response is", response);
+            res.redirect('/');
+        }) .catch(err => err);
+    }
 }
