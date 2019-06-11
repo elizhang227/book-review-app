@@ -5,6 +5,7 @@ const chai = require('chai'),
 chai.use(chaiAsPromised).should();
 
 const User = require('../models/users');
+//const Book = require('../models/books');
 
 describe('Users model tests', () => {
     // given an email eaddress, do we get a user object in return
@@ -25,4 +26,14 @@ describe('Users model tests', () => {
         const allUsers = await User.getAllUsers();
         expect(allUsers).to.not.be.an('undefined');
     });
+
+    // it('should be a valid user object', async () => {
+    //     const testInstance = new User(null, 'e', 'z', 'ez@aol.com', 'blah'); //email has to be different everytime
+    //     const thisUser = await testInstance.createUser();
+    //     expect(thisUser).to.be.an('object');
+    // });
 });
+
+// describe('Books model tests', () => {
+//     it('should be ')
+// });
